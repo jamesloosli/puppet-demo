@@ -16,16 +16,17 @@ Vagrant.configure("2") do |config|
       hosts.add_host '192.168.50.10', ['puppet']
     end
 
+    ## r10k Config
+    master.vm.provision :file do |file|
+      file.source = "config/r10k.yaml"
+      file.destination = "/tmp/r10k.yaml"
+    end
+
     ## Puppet Provision
     master.vm.provision :shell do |shell|
       shell.path = "bin/deploy-master.sh"
     end
 
-    ### AWS Key
-    #master.vm.provision :file do |file|
-    #  file.source = "~/.aws/credentials"
-    #  file.destination = "/tmp/credentials"
-    #end
 
   end
 
